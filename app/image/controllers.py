@@ -15,7 +15,9 @@ def upload_image_post():
     if not filetype.is_image(image_file):
         return jsonify({"error": "You passed a file that is not an image"}), 400
 
-    filename = secure_filename(image_file.filename)
+    filename = image_file.filename
+
+    image_file.seek(0)
     image_file.save(os.path.join(f"{os.getcwd()}\\app\\static\\upload", filename))
 
     return jsonify({
